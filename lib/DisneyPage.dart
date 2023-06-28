@@ -484,7 +484,7 @@ class disney extends State<DisneyPage> {
                   ),
                   SizedBox(height: 0),
                   Text(
-                    '"Es un servicio de Streaming de video operado bajo demanda, es decir, el usuario escoge lo que desea ver desde un repertorio o catálogo en línea. Fue creado y desarrollado \n\t\t\tpor la división de `Media and Entertainment Distribution`, propiedad de The `Walt Disney Company`. Este se centra principalmente en la transmisión de películas y series \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\toriginales de la cadena, además de otras marcas de la misma. Entre las que se encuentran Marvel, Pixar, Star Wars, Disney y National Geographic."',
+                    '"Es un servicio de Streaming de video operado bajo demanda, es decir, el usuario escoge lo que desea ver desde un repertorio o catálogo en línea. Fue creado y desarrollado por la división de `Media and Entertainment Distribution`, propiedad de The `Walt Disney Company`. Este se centra principalmente en la transmisión de películas y series originales de la cadena, además de otras marcas de la misma. Entre las que se encuentran Marvel, Pixar, Star Wars, Disney y National Geographic."',
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,

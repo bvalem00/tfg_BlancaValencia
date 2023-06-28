@@ -516,12 +516,12 @@ List <dynamic> getMoviesByGenre(String genre) {
                     ),
                     SizedBox(height: 0),
                       Text(
-                      '"IMDb, Internet Movie Database (Base de Datos de películas en Internet) es la base de datos de películas más grande y completa de la web que almacena información \n\t\t\t\t\t\trelacionada con películas, personal del equipo de producción, directores, actores... que aparecen en los medios de entretenimiento visual. Considerado como uno \n\t\t\t\t\t\t\t\t\tde los sitios más importantes de cine y televisión, IMDb, originalmente, fue construida por Col Needham, Dave Knight y Andy Krieg un 17 de octubre de 1985, \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tpero nació oficialmente en 1990, y en 1998 fue adquirida por Amazon."',
+                      '"IMDb, Internet Movie Database (Base de Datos de películas en Internet) es la base de datos de películas más grande y completa de la web que almacena información relacionada con películas, personal del equipo de producción, directores, actores... que aparecen en los medios de entretenimiento visual. Considerado como uno de los sitios más importantes de cine y televisión, IMDb, originalmente, fue construida por Col Needham, Dave Knight y Andy Krieg un 17 de octubre de 1985, pero nació oficialmente en 1990, y en 1998 fue adquirida por Amazon."',
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
                         fontStyle: FontStyle.italic,
-                        color: Colors.black, // Cambia el color del texto a negro
+                        color: Colors.black,
                       ),
                     ),
                   ],

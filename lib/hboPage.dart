@@ -483,7 +483,7 @@ double calculoDistanciaJaccard(List<dynamic> movie1, List<dynamic> movie2) {
                       ),
                       SizedBox(height: 0),
                         Text(
-                          '"Es una plataforma en la que ver las producciones creadas por los canales de WarnerMedia. Esto quiere decir que te vas a encontrar con el contenido\n \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t de HBO, el de DC, Warner Bros, Cartoon Network y Max Originals entre otros muchos."',
+                          '"Es una plataforma en la que ver las producciones creadas por los canales de WarnerMedia. Esto quiere decir que te vas a encontrar con el contenido de HBO, el de DC, Warner Bros, Cartoon Network y Max Originals entre otros muchos."',
                           style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,

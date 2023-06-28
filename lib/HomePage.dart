@@ -173,15 +173,15 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 0),
             Image.asset(
               'assets/logoN.png',
-              width: 350,
+              width: 200,
             ),
             SizedBox(height: 0),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 0),
               child: Text(
                 'Sistema de Recomendación',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 15,
                   fontWeight: FontWeight.bold,
                   fontStyle: FontStyle.italic,
                   decoration: TextDecoration.underline,
@@ -191,7 +191,7 @@ class HomePage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: 50),
+            SizedBox(height: 20),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
@@ -204,7 +204,18 @@ class HomePage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: 100),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                '\n\n¿En que consisten los diferentes filtrados?\nPulsa sobre ellos para saber más!',
+                style: TextStyle(
+                color: Colors.grey[600],
+                fontStyle: FontStyle.italic,
+              ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -214,7 +225,7 @@ class HomePage extends StatelessWidget {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text('Collaborative System'),
+                          title: Text('Filtrado colaborativo'),
                           content: Text(
                             'El filtrado colaborativo es un enfoque utilizado por los sistemas de recomendación para hacer predicciones y sugerencias en función de las '
                             +'opiniones e interacciones de un grupo de usuarios. En lugar de analizar características individuales, este método busca patrones y similitudes '
@@ -240,7 +251,7 @@ class HomePage extends StatelessWidget {
                       ),
                       SizedBox(height: 10),
                       Text(
-                        'Collaborative System',
+                        'FILTRADO COLABORATIVO',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -258,7 +269,7 @@ class HomePage extends StatelessWidget {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text('Content-Based Filtering'),
+                          title: Text('Filtrado basado en contenido'),
                           content: Text(
                             'El filtrado basado en contenido es un método utilizado por los sistemas de recomendación para ofrecer sugerencias personalizadas en función'
                             +'de las características y propiedades de los elementos a recomendar. Estos sistemas analizan el contenido de los elementos previamente valorados' 
@@ -279,17 +290,174 @@ class HomePage extends StatelessWidget {
                   child: Column(
                     children: [
                       Image.asset(
-                        'assets/content.jpeg',
-                        width: 100,
+                        'assets/filtradoBasado.png',
+                        width: 90,
                       ),
                       SizedBox(height: 10),
                       Text(
-                        'Content-Based Filtering',
+                        'FILTRADO BASADO EN CONTENIDO',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                '\n\n¿Quieres saber más sobre los algoritmos con los que trabajamos?\nPulsa sobre ellos para saber más!',
+                style: TextStyle(
+                color: Colors.grey[600],
+                fontStyle: FontStyle.italic,
+              ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            SizedBox(height: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Correlación de Pearson'),
+                          content: Text(
+                            'Algoritmo utilizado para el "Filtrado colaborativo".\nLa correlación de Pearson es una medida' 
+                            + 'estadística que evalúa la relación lineal entre dos variables. En el contexto de los sistemas de recomendación, se utiliza para determinar la similitud entre dos conjuntos de datos,' 
+                            + 'como por ejemplo las calificaciones que los usuarios han dado a diferentes elementos.'
+                            + '\nLa correlación de Pearson toma valores entre -1 y 1, donde 1 indica una correlación positiva perfecta, -1 indica una correlación negativa perfecta y 0 indica ausencia de correlación. Un valor cercano a 1 significa que dos' 
+                            + 'variables están altamente correlacionadas, lo que implica que si a un usuario le gusta un elemento, es probable que también le guste otro elemento con alta correlación.'
+                            ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('Cerrar'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/algoritmos.jpeg',
+                        width: 110,
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        'CORRELACIÓN DE PEARSON',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
-                          color: Colors.black, // Cambia el color del texto a negro
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Algoritmo de Jaccard'),
+                          content: Text(
+                            'Algoritmo utilizado para el "Filtrado basado en contenido".\nEl algoritmo de Jaccard es un método utilizado para calcular la similitud entre conjuntos. En el contexto de los sistemas de recomendación, se utiliza para determinar la similitud entre los conjuntos de elementos' 
+                            + 'que han sido valorados o seleccionados por diferentes usuarios.\nEl algoritmo de Jaccard calcula la similitud dividiendo el número de elementos comunes entre dos conjuntos por el número total de elementos '
+                            + 'en ambos conjuntos. El resultado varía entre 0 y 1, donde 0 indica que los conjuntos no tienen elementos en común y 1 indica que los conjuntos son idénticos.'
+                            ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('Cerrar'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/jaccard.png',
+                        width: 110,
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        'JACCARD',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 20),
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Algoritmo del Coseno'),
+                          content: Text(
+                            'Algoritmo utilizado para el "Filtrado basado en contenido".\nEl algoritmo del coseno es un método utilizado para calcular la similitud entre dos vectores en un espacio vectorial. En el contexto de los sistemas de recomendación, se utiliza para determinar la similitud entre los perfiles' 
+                            + 'de preferencias de los usuarios o las características de los elementos.\nEl algoritmo del coseno calcula la similitud entre dos vectores dividiendo el producto escalar de los vectores por el producto de sus magnitudes. El resultado varía entre -1 y 1, '
+                            + 'donde 1 indica una similitud perfecta en la misma dirección, -1 indica una similitud perfecta en direcciones opuestas y 0 indica que los vectores son ortogonales o no tienen similitud.'
+                            + 'La carrelación de pearson es el único  utilizado en esa sección, en cambio en el filtrado basado en contenido'
+                            + ' podrás elegir entre jaccard o coseno para realizar la recomendación. No esperes más y pruébalos!'
+                            ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('Cerrar'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/coseno.png',
+                        width: 70,
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        'COSENO',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                          color: Colors.black,
                         ),
                       ),
                     ],

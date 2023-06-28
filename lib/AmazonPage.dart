@@ -484,7 +484,7 @@ class amazon extends State<AmazonPage> {
                       ),
                       SizedBox(height: 0),
                         Text(
-                          '"Prime video es una plataforma cuya subscripción está incluida con Amazon prime. Es una plataforma de contenido bajo demanda de películas, series y documentales en \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tla que encontrarás todo tipo de contenido audiovisual de productoras externas y de la propia productora de Amazon, Prime Video."',
+                          '"Prime video es una plataforma cuya subscripción está incluida con Amazon prime. Es una plataforma de contenido bajo demanda de películas, series y documentales en la que encontrarás todo tipo de contenido audiovisual de productoras externas y de la propia productora de Amazon, Prime Video."',
                           style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
