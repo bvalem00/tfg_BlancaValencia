@@ -1,0 +1,111 @@
+/*******************************************************************************/
+CollaborativeSystem:
+/*******************************************************************************/
+El código se divide en varias secciones:
+
+1. Definición de la clase `Movie`: Esta clase representa una película y tiene dos propiedades: `name` (nombre de la película) y `rating` (calificación de la película).
+
+2. Definición de la clase `CollaborativeSystemPage`: Esta clase es un widget de página que se muestra en la aplicación. Implementa el estado mutable y contiene la lógica principal de la página 
+de recomendaciones.
+
+3. El método `initState()` se llama al iniciar el estado del widget. En este método, se carga la información de las películas y las calificaciones desde archivos CSV.
+
+4. El método `dispose()` se llama cuando el widget está siendo eliminado. En este caso, se libera el controlador de texto (`movieController`).
+
+5. El método `cargarDatos()` carga los datos de películas y calificaciones desde archivos CSV utilizando el paquete `csv` y los almacena en las listas `tablaPeliculas` y `tablaValor`, 
+respectivamente.
+
+6. El método `buscarFila()` busca una película en la lista `tablaPeliculas` basándose en su nombre. Devuelve la fila correspondiente si se encuentra, de lo contrario, devuelve una lista vacía.
+
+7. El método `buscarUsuarios()` busca los usuarios que han calificado una película específica. Recorre la lista `tablaValor` y compara el ID de la película. Devuelve una lista de identificadores
+ de usuarios.
+
+8. El método `cuadroPeliculas()` muestra un cuadro de diálogo que contiene las películas seleccionadas por el usuario. Si hay películas sin calificar, muestra un mensaje de error. Si todas las 
+películas están calificadas, muestra la información de las películas seleccionadas y da la opción de continuar para obtener las recomendaciones.
+
+9. El método `usuariosComun()` calcula la frecuencia de usuarios que han calificado las películas seleccionadas. Luego, selecciona los usuarios más frecuentes y busca películas calificadas por 
+esos usuarios que aún no han sido seleccionadas. Las películas encontradas se almacenan en la lista `moviesToRecommend`.
+
+10. El método `mostrarRecomendaciones()` muestra un cuadro de diálogo con las películas recomendadas. Si no hay películas para recomendar, muestra un mensaje indicando que no hay recomendaciones
+disponibles.
+
+11. Los métodos `agregarPelicula()`, `eliminarPelicula()` y `valorarPelicula()` se utilizan para agregar películas a la lista de películas seleccionadas, eliminar películas y asignar una 
+calificación a una película, respectivamente.
+
+12. El método `buscarSugerencias()` busca sugerencias de películas mientras el usuario escribe en el campo de texto. Las sugerencias se muestran en una lista desplegable.
+
+13. El método `build()` construye la interfaz de usuario de la página. Utiliza varios widgets de Flutter para mostrar y manejar la entrada de películas, las películas seleccionadas, el número 
+de recomendaciones y los botones de acción.
+
+14. En la parte inferior de la página, hay una barra de navegación inferior (`BottomAppBar`) que contiene varios botones e enlaces para acciones como compartir, acceder a preguntas frecuentes 
+y contactar.
+
+En resumen, este código implementa una página de recomendaciones colaborativas en una aplicación Flutter. Permite a los usuarios agregar películas, asignarles una calificación y obtener 
+recomendaciones basadas en las películas seleccionadas y las calificaciones de otros usuarios. El código se encarga de cargar los datos de películas y calificaciones desde archivos CSV, buscar 
+películas y usuarios en las listas, calcular recomendaciones basadas en usuarios comunes y mostrar las recomendaciones al usuario. También incluye la interfaz de usuario para mostrar las 
+películas seleccionadas, la entrada de películas y las acciones para agregar, eliminar y valorar películas. Además, muestra una lista desplegable de sugerencias de películas mientras el usuario 
+escribe en el campo de texto. También se proporciona una barra de navegación inferior con enlaces a acciones adicionales.
+
+/*******************************************************************************/
+ContentBased:
+/*******************************************************************************/
+Este código representa una página de recomendaciones de películas de Netflix en una aplicación de Flutter. A continuación, te explicaré las principales partes y funciones del código:
+
+1. Importaciones: El código importa varios paquetes y archivos necesarios para la aplicación, como `dart:async`, `dart:math`, y otros paquetes de Flutter como `package:flutter/material.dart`.
+
+2. Clase `NetflixPage`: Es una clase que extiende la clase `StatefulWidget` y representa la página principal de la aplicación de recomendaciones de Netflix.
+
+3. Clase `netflix`: Es la clase de estado asociada a `NetflixPage`. Contiene varios atributos y funciones que se utilizan en la página de recomendaciones.
+
+4. Método `initState()`: Es un método que se ejecuta automáticamente cuando se crea el estado de `NetflixPage`. En este caso, se utiliza para cargar los datos desde un archivo 
+CSV (`netflix.csv`) en la lista `tablas`.
+
+5. Método `dispose()`: Es un método que se ejecuta automáticamente cuando se elimina el estado de `NetflixPage`. En este caso, se utiliza para liberar recursos, como el controlador de texto 
+`controlador`.
+
+6. Método `cargarDatos()`: Es un método asíncrono que carga los datos desde el archivo CSV y los convierte en una lista de listas utilizando el paquete `csv`.
+
+7. Método `buscarFila(String movieName)`: Este método busca una fila en la lista `tablas` que contenga el nombre de la película especificado. Devuelve la fila correspondiente si se encuentra, 
+o una lista vacía si no se encuentra ninguna coincidencia.
+
+8. Método `recomendaciones(List<dynamic> columnasSeleccionadas, int k, String selectedAlgorithm)`: Este método calcula las recomendaciones de películas utilizando el algoritmo seleccionado 
+(Jaccard o Coseno) y el número de recomendaciones especificado. El resultado se muestra en un cuadro de diálogo.
+
+9. Método `calculoDistanciaJaccard(List<dynamic> movie1, List<dynamic> movie2)`: Calcula la distancia de Jaccard entre dos películas, utilizando los atributos de director, reparto y género para 
+el cálculo.
+
+10. Método `calculoJaccard(String atributo1, String atributo2)`: Calcula la distancia de Jaccard entre dos atributos de texto.
+
+11. Método `calculoDistanciaCoseno(List<dynamic> movie1, List<dynamic> movie2)`: Calcula la distancia del coseno entre dos películas, utilizando los atributos de director, reparto y género para 
+el cálculo.
+
+12. Método `calculoCoseno(String atributo1, String atributo2)`: Calcula la distancia del coseno entre dos atributos de texto.
+
+13. Método `cuadroRecomendaciones(BuildContext context, List<String> recommendations)`: Muestra un cuadro de diálogo con las recomendaciones de películas calculadas. Permite al usuario ir a 
+Netflix o cerrar el cuadro de diálogo.
+
+14. Método `cuadroPeliculas(BuildContext context)`: Muestra un cuadro de diálogo con los detalles de una película seleccionada y permite al usuario seleccionar el algoritmo y el número de 
+recomendaciones.
+
+15. Método `getMoviesByGenre(String genre)`: Devuelve una lista de películas filtradas por género.
+
+16. Método `buildGenreSection(String genre)`: Construye la sección de género en la página, mostrando una lista de películas para el género especificado.
+
+¡Claro! Aquí tienes la continuación de la explicación del código:
+
+17. Método `buildMovieRow(List<dynamic> movie)`: Construye una fila de película en la página. Muestra el título, el director, el reparto y el género de la película, y permite al usuario 
+hacer 
+clic en la fila para ver más detalles.
+
+18. Método `buildMovieDetails(String title, String director, String cast, String genre)`: Construye los detalles de una película seleccionada. Muestra el título, el director, el reparto y 
+el 
+género de la película.
+
+19. Método `build(BuildContext context)`: Es un método que se ejecuta automáticamente y se encarga de construir la interfaz de usuario de la página. En este caso, se utiliza un `Scaffold` 
+con 
+un `AppBar`, un `ListView` para mostrar las secciones de género y un `FloatingActionButton` para mostrar el cuadro de diálogo de detalles de la película.
+
+20. Método `main()`: Es el punto de entrada de la aplicación. En este caso, simplemente ejecuta el método `runApp` para iniciar la aplicación de Flutter.
+
+Este código es una implementación básica de una página de recomendaciones de películas de Netflix en una aplicación de Flutter. Puedes personalizar y mejorar este código según tus necesidades 
+y preferencias.
