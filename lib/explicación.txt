@@ -109,3 +109,40 @@ un `AppBar`, un `ListView` para mostrar las secciones de género y un `FloatingA
 
 Este código es una implementación básica de una página de recomendaciones de películas de Netflix en una aplicación de Flutter. Puedes personalizar y mejorar este código según tus necesidades 
 y preferencias.
+
+COMANDOS CORRER APP EN VSCODE:
+primero, iniciar emulador en android AndroidStudio
+ahora en terminal vscode:
+flutter devices
+flutter emulators --launch Pixel 5 API 29
+flutter pub get
+flutter run
+
+COMO LLEGAR A VER LOS MENSAJES DEL CONTACTO:
+PS E:\AndroidStudioProjects> adb shell
+generic_x86:/ $ cd data/user/0/com.example.tfg_blanca_valencia/app_flutter
+
+*PEGAR ESTO* su
+chmod 777 /data/user/0/com.example.tfg_blanca_valencia
+
+generic_x86:/data/data/com.example.tfg_blanca_valencia/app_flutter # cat solicitudes.txt
+Email: b@gmail.com
+Mensaje: biufeg
+Fecha: 2023-06-29 10:27:42.851727
+
+Email: b@gmail.com
+Mensaje:  tfgjhkjkl
+Fecha: 2023-06-29 10:32:02.482368
+
+Email: blanca@gmail.com
+Mensaje: funiona?
+Fecha: 2023-06-29 11:11:48.461498
+
+SUBIR MODIFICACIONES A GITHUB:
+Entrar en la carpeta de la app cd CURSO/"- TRABAJO FIN DE GRADO"/tfg_blanca_valencia
+Comandos:
+git config --global user.name "bvalem00"
+git config --global user.email "bvalem00@estudiantes.unileon.es"
+git add .
+git commit -m <NOMBRE>
+git push
