@@ -26,8 +26,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Registration failed'),
-          content: Text('Please fill in all the required fields.'),
+          title: Text('Error en el registro'),
+          content: Text('Rellena todos los campos del registro.'),
           actions: [
             TextButton(
               onPressed: () {
@@ -45,8 +45,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Registration failed'),
-          content: Text('The email is already registered.'),
+          title: Text('Error en el registro'),
+          content: Text('El email ya ha sido registrado anteriormente.'),
           actions: [
             TextButton(
               onPressed: () {
@@ -65,8 +65,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Registration failed'),
-          content: Text('Please enter a valid email.'),
+          title: Text('Error en el registro'),
+          content: Text('Email no valido, insértelo en el formato correcto.'),
           actions: [
             TextButton(
               onPressed: () {
@@ -85,9 +85,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Registration failed'),
+          title: Text('Error en el registro'),
           content: Text(
-              'Please enter a valid password. Indications: minimum 5 characters, at least one capital letter, and one number.'),
+              'Inserte una contraseña válida. Indicaciones: minimo 5 carácteres, al menos una mayúscula y un número.'),
           actions: [
             TextButton(
               onPressed: () {
@@ -110,8 +110,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Registration completed'),
-        content: Text('The user has been successfully registered.'),
+        title: Text('Registro completo'),
+        content: Text('El registro ha sido formalizado! Inicia sesión y disfruta!.'),
         actions: [
           TextButton(
             onPressed: () {
@@ -138,50 +138,55 @@ class _RegistrationPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: Text('Registration'),
+        title: Text('Easy List'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
           children: [
-            Image.asset(
-              'assets/logoGrande.png',
-              width: 200, 
-            ),
-            TextFormField(
-              controller: _nameController,
-              decoration: InputDecoration(
-                labelText: 'Name',
-              ),
-            ),
-            SizedBox(height: 16.0),
-            TextFormField(
-              controller: _lastNameController,
-              decoration: InputDecoration(
-                labelText: 'Last Name',
-              ),
-            ),
-            SizedBox(height: 16.0),
-            TextFormField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                labelText: 'Email',
-              ),
-            ),
-            SizedBox(height: 16.0),
-            TextFormField(
-              controller: _passwordController,
-              decoration: InputDecoration(
-                labelText: 'Password',
-              ),
-              obscureText: true,
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: registerUser,
-              child: Text('Register'),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/logoGrande.png',
+                  width: 200,
+                ),
+                TextFormField(
+                  controller: _nameController,
+                  decoration: InputDecoration(
+                    labelText: 'Nombre',
+                  ),
+                ),
+                SizedBox(height: 16.0),
+                TextFormField(
+                  controller: _lastNameController,
+                  decoration: InputDecoration(
+                    labelText: 'Apellidos',
+                  ),
+                ),
+                SizedBox(height: 16.0),
+                TextFormField(
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                  ),
+                ),
+                SizedBox(height: 16.0),
+                TextFormField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(
+                    labelText: 'Contraseña',
+                  ),
+                  obscureText: true,
+                ),
+                SizedBox(height: 16.0),
+                ElevatedButton(
+                  onPressed: registerUser,
+                  child: Text('Registrarse'),
+                ),
+              ],
             ),
           ],
         ),

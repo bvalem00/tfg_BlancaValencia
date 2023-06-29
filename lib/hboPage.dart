@@ -65,7 +65,7 @@ class hbo extends State<hboPage> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Error'),
-            content: const Text('Invalid algorithm selected.'),
+            content: const Text('No ha seleccionado ningún algoritmo.'),
             actions: [
               ElevatedButton(
                 onPressed: () {
@@ -198,11 +198,11 @@ double calculoDistanciaJaccard(List<dynamic> movie1, List<dynamic> movie2) {
   magnitude2 = sqrt(magnitude2);
 
   if (magnitude1 == 0 || magnitude2 == 0) {
-    return 0; // Evitar división por cero
+    return 0;
   }
 
   final double cosineSimilarity = dotProduct / (magnitude1 * magnitude2);
-  return 1 - cosineSimilarity; // Convertir similaridad en distancia
+  return 1 - cosineSimilarity;
 }
 
   void cuadroRecomendaciones(BuildContext context, List<String> recommendations) {
@@ -218,19 +218,21 @@ double calculoDistanciaJaccard(List<dynamic> movie1, List<dynamic> movie2) {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Recommendations:'),
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: recommendations.map((recommendation) => Text(recommendation)).toList(),
+          title: const Text('Recomendaciones:'),
+          content: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: recommendations.map((recommendation) => Text(recommendation)).toList(),
+            ),
           ),
           actions: [
             ElevatedButton(
               onPressed: () {
-                final String enlaceDisney = 'https://www.netflix.com/';
+                final String enlaceDisney = 'https://www.hbomax.com/';
                 launch(enlaceDisney);
               },
-              child: const Text('Go to HBO'),
+              child: const Text('Ir a HBO'),
             ),
             ElevatedButton(
               onPressed: () {
@@ -239,7 +241,7 @@ double calculoDistanciaJaccard(List<dynamic> movie1, List<dynamic> movie2) {
                   (Route<dynamic> ruta) => false,
                 );
               },
-              child: const Text('Close'),
+              child: const Text('Cerrar'),
             ),
           ],
         );
@@ -248,51 +250,53 @@ double calculoDistanciaJaccard(List<dynamic> movie1, List<dynamic> movie2) {
   }
 
   void cuadroPeliculas(BuildContext context) {
-    showDialog(
+  showDialog(
     context: context,
     builder: (BuildContext context) {
-      String selectedAlgorithm = 'Jaccard'; // Algoritmo seleccionado (valor predeterminado: Jaccard)
+      String selectedAlgorithm = 'Jaccard';
 
       return StatefulBuilder(
         builder: (context, setState) {
           return AlertDialog(
-            title: const Text('Details:'),
-            content: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
+            title: const Text('Detalles:'),
+            content: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
                 Text(columnasSeleccionadas[2].toString()),
-                Text('Seasons: ' + columnasSeleccionadas[9].toString()),
-                Text('Title: ' + columnasSeleccionadas[1].toString()),
-                Text('Country: ' + columnasSeleccionadas[8].toString()),
-                Text('Release year: ' + columnasSeleccionadas[4].toString()),
-                Text('Genre: ' + columnasSeleccionadas[7].toString()),
-                Text('Description: '+ columnasSeleccionadas[3].toString()),
+                Text('Temporada: ' + columnasSeleccionadas[9].toString()),
+                Text('Titulo: ' + columnasSeleccionadas[1].toString()),
+                Text('País: ' + columnasSeleccionadas[8].toString()),
+                Text('Lanzamiento: ' + columnasSeleccionadas[4].toString()),
+                Text('Genero: ' + columnasSeleccionadas[7].toString()),
+                Text('Descripción: '+ columnasSeleccionadas[3].toString()+'\n\n'),
                 TextField(
-                  controller: numControlador,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
-                  decoration: InputDecoration(
-                    labelText: 'Enter the number of recommendations',
+                    controller: numControlador,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                    decoration: InputDecoration(
+                      labelText: 'Número de recomendaciones que deseas:',
+                    ),
                   ),
-                ),
-                SizedBox(height: 30),
-                Text('Select an algoritm to continue:'),
-                DropdownButton<String>(
-                  value: selectedAlgorithm,
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      selectedAlgorithm = newValue!;
-                    });
-                  },
-                  items: <String>['Jaccard', 'Coseno'].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-              ],
+                  SizedBox(height: 30),
+                  Text('Selecciona un algoritmo para continuar:'),
+                  DropdownButton<String>(
+                    value: selectedAlgorithm,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedAlgorithm = newValue!;
+                      });
+                    },
+                    items: <String>['Jaccard', 'Coseno'].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
             ),
             actions: [
               TextButton(
@@ -303,7 +307,7 @@ double calculoDistanciaJaccard(List<dynamic> movie1, List<dynamic> movie2) {
                     columnasSeleccionadas = [];
                   });
                 },
-                child: const Text('Modify'),
+                child: const Text('Modificar'),
               ),
               TextButton(
                 onPressed: () {
@@ -314,7 +318,7 @@ double calculoDistanciaJaccard(List<dynamic> movie1, List<dynamic> movie2) {
                         builder: (BuildContext context) {
                           return AlertDialog(
                             title: const Text('Error'),
-                            content: const Text('Please enter the number of recommendations.'),
+                            content: const Text('Por favor, inserta el número de recomendaciones.'),
                             actions: [
                               ElevatedButton(
                                 onPressed: () {
@@ -337,7 +341,7 @@ double calculoDistanciaJaccard(List<dynamic> movie1, List<dynamic> movie2) {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: const Text('Error'),
-                          content: const Text('Please select an algorithm.'),
+                          content: const Text('Por favor, selecciona un algoritmo.'),
                           actions: [
                             ElevatedButton(
                               onPressed: () {
@@ -351,7 +355,7 @@ double calculoDistanciaJaccard(List<dynamic> movie1, List<dynamic> movie2) {
                     );
                   }
                 },
-                child: const Text('Continue'),
+                child: const Text('Continuar'),
               ),
             ],
           );
@@ -365,9 +369,6 @@ double calculoDistanciaJaccard(List<dynamic> movie1, List<dynamic> movie2) {
     return tablas.where((row) => row[7].toString().toLowerCase().contains(genre.toLowerCase())).toList();
   }
 
-  List<dynamic> getMoviesByType(String type) {
-    return tablas.where((row) => row[2].toString().toLowerCase().contains(type.toLowerCase())).toList();
-  }
 
   Widget buildGenreSection(String genre) {
     final List<dynamic> moviesG = getMoviesByGenre(genre);
@@ -439,7 +440,7 @@ double calculoDistanciaJaccard(List<dynamic> movie1, List<dynamic> movie2) {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('HBO MAX',
+        title: const Text('Easy List',
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -488,7 +489,7 @@ double calculoDistanciaJaccard(List<dynamic> movie1, List<dynamic> movie2) {
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.italic,
-                          color: Colors.black, // Cambia el color del texto a negro
+                          color: Colors.black,
                         ),
                       ),
                     ],
@@ -511,7 +512,7 @@ double calculoDistanciaJaccard(List<dynamic> movie1, List<dynamic> movie2) {
                           });
                         },
                         decoration: InputDecoration(
-                          labelText: 'Movie name',
+                          labelText: 'Película',
                         ),
                       ),
                     ),
@@ -592,7 +593,7 @@ double calculoDistanciaJaccard(List<dynamic> movie1, List<dynamic> movie2) {
                 color: const Color.fromARGB(255, 245, 146, 179),
               ),
               onPressed: () {
-                // Acción al presionar el botón de Twitter
+                //botón de Twitter
               },
             ),
             IconButton(
@@ -600,7 +601,7 @@ double calculoDistanciaJaccard(List<dynamic> movie1, List<dynamic> movie2) {
                 color: const Color.fromARGB(255, 245, 146, 179),
               ),
               onPressed: () {
-                // Acción al presionar el botón de Instagram
+                //botón de Instagram
               },
             ),
             IconButton(
@@ -608,7 +609,7 @@ double calculoDistanciaJaccard(List<dynamic> movie1, List<dynamic> movie2) {
                 color: const Color.fromARGB(255, 245, 146, 179),
               ),
               onPressed: () {
-                final String appLink = 'https://example.com/app-link'; // Reemplazar
+                final String appLink = 'https://easylist.com/hbo';
                 Clipboard.setData(ClipboardData(text: appLink)).then((value) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Enlace copiado')),
@@ -619,7 +620,7 @@ double calculoDistanciaJaccard(List<dynamic> movie1, List<dynamic> movie2) {
             ),
             InkWell(
               onTap: () {
-                // Acción al presionar el enlace de preguntas frecuentes
+                //enlace preguntas frecuentes
               },
               child: Text(
                 'FAQ',

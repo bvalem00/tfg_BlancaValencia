@@ -38,8 +38,8 @@ class _LoginPageState extends State<LoginPage> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Failed login'),
-          content: Text('The username or password is incorrect.'),
+          title: Text('Error de inicio de sesión'),
+          content: Text('El usuario y/o la contraseña son incorrectos.'),
           actions: [
             TextButton(
               onPressed: () {
@@ -57,49 +57,53 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: Text('Easy List'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
           children: [
-            Image.asset(
-              'assets/logoGrande.png',
-              width: 200, 
-            ),
-            SizedBox(height: 16.0),
-            TextFormField(
-              controller: _usernameController,
-              decoration: InputDecoration(
-                labelText: 'Username',
-              ),
-            ),
-            SizedBox(height: 16.0),
-            TextFormField(
-              controller: _passwordController,
-              decoration: InputDecoration(
-                labelText: 'Password',
-              ),
-              obscureText: true,
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: registerUser,
-              child: Text('Register'),
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: loginUser,
-              child: Text('Login'),
-            ),
-            SizedBox(height: 16.0),
-            Text(
-              '© 2023 Easy List', 
-              style: TextStyle(
-                fontSize: 12.0,
-                color: Colors.grey,
-              ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/logoGrande.png',
+                  width: 200,
+                ),
+                SizedBox(height: 16.0),
+                TextFormField(
+                  controller: _usernameController,
+                  decoration: InputDecoration(
+                    labelText: 'Usuario',
+                  ),
+                ),
+                SizedBox(height: 16.0),
+                TextFormField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(
+                    labelText: 'Contraseña',
+                  ),
+                  obscureText: true,
+                ),
+                SizedBox(height: 16.0),
+                ElevatedButton(
+                  onPressed: registerUser,
+                  child: Text('Registrarse'),
+                ),
+                SizedBox(height: 16.0),
+                ElevatedButton(
+                  onPressed: loginUser,
+                  child: Text('Iniciar sesión'),
+                ),
+                SizedBox(height: 16.0),
+                Text(
+                  '© 2023 Easy List',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
             ),
           ],
         ),

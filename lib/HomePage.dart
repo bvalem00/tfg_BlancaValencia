@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home',
+        title: Text('Easy List',
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
           children: [
             DrawerHeader(
               child: Text(
-                'Menu',
+                'Menú',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: Text('Collaborative System', 
+              title: Text('Filtrado colaborativo', 
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -58,7 +58,7 @@ class HomePage extends StatelessWidget {
             ),
             ExpansionTile(
               title: Text(
-                'Content-Based Filtering',
+                'Filtrado basado en contenido',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -477,7 +477,7 @@ class HomePage extends StatelessWidget {
                 color: const Color.fromARGB(255, 245, 146, 179),
               ),
               onPressed: () {
-                // Acción al presionar el botón de Twitter
+                //botón de Twitter
               },
             ),
             IconButton(
@@ -485,7 +485,7 @@ class HomePage extends StatelessWidget {
                 color: const Color.fromARGB(255, 245, 146, 179),
               ),
               onPressed: () {
-                // Acción al presionar el botón de Instagram
+                //botón de Instagram
               },
             ),
             IconButton(
@@ -493,7 +493,7 @@ class HomePage extends StatelessWidget {
                 color: const Color.fromARGB(255, 245, 146, 179),
               ),
               onPressed: () {
-                final String appLink = 'https://easylist.com'; // Reemplazar
+                final String appLink = 'https://easylist.com';
                 Clipboard.setData(ClipboardData(text: appLink)).then((value) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Enlace copiado')),
@@ -504,7 +504,7 @@ class HomePage extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                // Acción al presionar el enlace de preguntas frecuentes
+                //enlace preguntas frecuentes
               },
               child: Text(
                 'FAQ',

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'HomePage.dart';
 import 'LoginPage.dart';
 
 void main() {
@@ -45,7 +44,6 @@ class MyApp extends StatelessWidget {
       title: 'Easy List',
       theme: myTheme,
       home: LoginPage(userRepository: userRepository),
-      //home: HomePage(),
     );
   }
 }

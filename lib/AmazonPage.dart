@@ -65,7 +65,7 @@ class amazon extends State<AmazonPage> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Error'),
-            content: const Text('Invalid algorithm selected.'),
+            content: const Text('No ha seleccionado ningún algoritmo.'),
             actions: [
               ElevatedButton(
                 onPressed: () {
@@ -197,11 +197,11 @@ class amazon extends State<AmazonPage> {
   magnitude2 = sqrt(magnitude2);
 
   if (magnitude1 == 0 || magnitude2 == 0) {
-    return 0; // Evitar división por cero
+    return 0;
   }
 
   final double cosineSimilarity = dotProduct / (magnitude1 * magnitude2);
-  return 1 - cosineSimilarity; // Convertir similaridad en distancia
+  return 1 - cosineSimilarity;
 }
 
   void cuadroRecomendaciones(BuildContext context, List<String> recommendations) {
@@ -217,19 +217,21 @@ class amazon extends State<AmazonPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Recommendations:'),
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: recommendations.map((recommendation) => Text(recommendation)).toList(),
+          title: const Text('Recomendaciones:'),
+          content: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: recommendations.map((recommendation) => Text(recommendation)).toList(),
+            ),
           ),
           actions: [
             ElevatedButton(
               onPressed: () {
-                final String enlaceDisney = 'https://www.netflix.com/';
+                final String enlaceDisney = 'https://www.primevideo.com/';
                 launch(enlaceDisney);
               },
-              child: const Text('Go to Prime'),
+              child: const Text('Ir a Prime'),
             ),
             ElevatedButton(
               onPressed: () {
@@ -238,7 +240,7 @@ class amazon extends State<AmazonPage> {
                   (Route<dynamic> ruta) => false,
                 );
               },
-              child: const Text('Close'),
+              child: const Text('Cerrar'),
             ),
           ],
         );
@@ -247,53 +249,55 @@ class amazon extends State<AmazonPage> {
   }
 
   void cuadroPeliculas(BuildContext context) {
-    showDialog(
+  showDialog(
     context: context,
     builder: (BuildContext context) {
-      String selectedAlgorithm = 'Jaccard'; // Algoritmo seleccionado (valor predeterminado: Jaccard)
+      String selectedAlgorithm = 'Jaccard';
 
       return StatefulBuilder(
         builder: (context, setState) {
           return AlertDialog(
-            title: const Text('Details:'),
-            content: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(columnasSeleccionadas[1].toString()),
-                Text('Title: ' + columnasSeleccionadas[2].toString()),
-                Text('Director: ' + columnasSeleccionadas[3].toString()),
-                Text('Cast: ' + columnasSeleccionadas[4].toString()),
-                Text('Country: ' + columnasSeleccionadas[5].toString()),
-                Text('Added date on the platform: ' + columnasSeleccionadas[6].toString()),
-                Text('Release year: ' + columnasSeleccionadas[7].toString()),
-                Text('Genre: ' + columnasSeleccionadas[10].toString()),
-                Text('Description: ' + columnasSeleccionadas[11].toString()),
-                TextField(
-                  controller: numControlador,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
-                  decoration: InputDecoration(
-                    labelText: 'Enter the number of recommendations',
+            title: const Text('Detalles:'),
+            content: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(columnasSeleccionadas[1].toString()),
+                  Text('Titulo: ' + columnasSeleccionadas[2].toString()),
+                  Text('Director: ' + columnasSeleccionadas[3].toString()),
+                  Text('Actores: ' + columnasSeleccionadas[4].toString()),
+                  Text('País: ' + columnasSeleccionadas[5].toString()),
+                  Text('Año añadido en la plataforma: ' + columnasSeleccionadas[6].toString()),
+                  Text('Lanzamiento: ' + columnasSeleccionadas[7].toString()),
+                  Text('Genero: ' + columnasSeleccionadas[10].toString()),
+                  Text('Descripción: ' + columnasSeleccionadas[11].toString()+'\n\n'),
+                  TextField(
+                    controller: numControlador,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                    decoration: InputDecoration(
+                      labelText: 'Número de recomendaciones que deseas:',
+                    ),
                   ),
-                ),
-                SizedBox(height: 30),
-                Text('Select an algoritm to continue:'),
-                DropdownButton<String>(
-                  value: selectedAlgorithm,
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      selectedAlgorithm = newValue!;
-                    });
-                  },
-                  items: <String>['Jaccard', 'Coseno'].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-              ],
+                  SizedBox(height: 30),
+                  Text('Selecciona un algoritmo para continuar:'),
+                  DropdownButton<String>(
+                    value: selectedAlgorithm,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedAlgorithm = newValue!;
+                      });
+                    },
+                    items: <String>['Jaccard', 'Coseno'].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
             ),
             actions: [
               TextButton(
@@ -304,7 +308,7 @@ class amazon extends State<AmazonPage> {
                     columnasSeleccionadas = [];
                   });
                 },
-                child: const Text('Modify'),
+                child: const Text('Modificar'),
               ),
               TextButton(
                 onPressed: () {
@@ -315,7 +319,7 @@ class amazon extends State<AmazonPage> {
                         builder: (BuildContext context) {
                           return AlertDialog(
                             title: const Text('Error'),
-                            content: const Text('Please enter the number of recommendations.'),
+                            content: const Text('Por favor, inserta el número de recomendaciones.'),
                             actions: [
                               ElevatedButton(
                                 onPressed: () {
@@ -338,7 +342,7 @@ class amazon extends State<AmazonPage> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: const Text('Error'),
-                          content: const Text('Please select an algorithm.'),
+                          content: const Text('Por favor, selecciona un algoritmo.'),
                           actions: [
                             ElevatedButton(
                               onPressed: () {
@@ -352,7 +356,7 @@ class amazon extends State<AmazonPage> {
                     );
                   }
                 },
-                child: const Text('Continue'),
+                child: const Text('Continuar'),
               ),
             ],
           );
@@ -440,7 +444,7 @@ class amazon extends State<AmazonPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Prime Video',
+        title: const Text('Easy List',
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -489,7 +493,7 @@ class amazon extends State<AmazonPage> {
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.italic,
-                          color: Colors.black, // Cambia el color del texto a negro
+                          color: Colors.black,
                         ),
                       ),
                     ],
@@ -512,7 +516,7 @@ class amazon extends State<AmazonPage> {
                           });
                         },
                         decoration: InputDecoration(
-                          labelText: 'Movie name',
+                          labelText: 'Película',
                         ),
                       ),
                     ),
@@ -593,7 +597,7 @@ class amazon extends State<AmazonPage> {
                 color: const Color.fromARGB(255, 245, 146, 179),
               ),
               onPressed: () {
-                // Acción al presionar el botón de Twitter
+                //botón de Twitter
               },
             ),
             IconButton(
@@ -601,7 +605,7 @@ class amazon extends State<AmazonPage> {
                 color: const Color.fromARGB(255, 245, 146, 179),
               ),
               onPressed: () {
-                // Acción al presionar el botón de Instagram
+                //botón de Instagram
               },
             ),
             IconButton(
@@ -609,7 +613,7 @@ class amazon extends State<AmazonPage> {
                 color: const Color.fromARGB(255, 245, 146, 179),
               ),
               onPressed: () {
-                final String appLink = 'https://example.com/app-link'; // Reemplazar
+                final String appLink = 'https://easylist.com/primevideo';
                 Clipboard.setData(ClipboardData(text: appLink)).then((value) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Enlace copiado')),
@@ -620,7 +624,7 @@ class amazon extends State<AmazonPage> {
             ),
             InkWell(
               onTap: () {
-                // Acción al presionar el enlace de preguntas frecuentes
+                //enlace preguntas frecuentes
               },
               child: Text(
                 'FAQ',

@@ -9,7 +9,7 @@ import 'bottomPage.dart';
 
 class Movie {
   final String name;
-  int rating; // Valoración de la película
+  int rating;
 
   Movie(this.name, {this.rating = 0});
 
@@ -80,13 +80,13 @@ class _CollaborativeSystemPageState extends State<CollaborativeSystemPage> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Error'),
-            content: const Text('Please rate all the added movies.'),
+            content: const Text('Debes valorar todas las películas.'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text('Accept'),
+                child: const Text('Aceptar'),
               ),
             ],
           );
@@ -97,19 +97,16 @@ class _CollaborativeSystemPageState extends State<CollaborativeSystemPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Selected movies:'),
+            title: const Text('Películas:'),
             content: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: selectedMovies.map((movie) {
-                final movieRow = buscarFila(movie.name);
-                final movieId = movieRow.isNotEmpty ? movieRow[0] : 'N/A';
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Movie: ${movie.name}'),
-                    Text('Movie ID: $movieId'),
-                    Text('Rating: ${movie.rating}'),
+                    Text('Película: ${movie.name}'),
+                    Text('Valoración: ${movie.rating}'),
                     SizedBox(height: 8),
                   ],
                 );
@@ -120,21 +117,21 @@ class _CollaborativeSystemPageState extends State<CollaborativeSystemPage> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text('Modify'),
+                child: const Text('Modificar'),
               ),
               TextButton(
                 onPressed: () async{
                   Navigator.of(context).pop();
                   setState(() {
-                    isLoading = true; // Mostrar carga mientras se obtienen las recomendaciones
+                    isLoading = true;
                   });
                   await Future.delayed(Duration(seconds: 2));
                   usuariosComun(numRecommendations);
                   setState(() {
-                    isLoading = false; // Ocultar carga después de obtener las recomendaciones
+                    isLoading = false;
                   });
                 },
-                child: const Text('Continue'),
+                child: const Text('Continuar'),
               ),
             ],
           );
@@ -183,14 +180,14 @@ class _CollaborativeSystemPageState extends State<CollaborativeSystemPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('No recommendations'),
-          content: const Text('There are no movies to recommend at the moment.'),
+          title: const Text('No hay recomendaciones'),
+          content: const Text('Lo siento, no ha habido recomednaciones disponibles en este momento.'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Accept'),
+              child: const Text('Aceptar'),
             ),
           ],
         );
@@ -201,12 +198,12 @@ class _CollaborativeSystemPageState extends State<CollaborativeSystemPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Recommended movies:'),
+          title: const Text('Películas recomendadas:'),
           content: SizedBox(
             width: double.maxFinite,
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: min(movies.length, numRecommendations),  // Actualización aquí
+              itemCount: min(movies.length, numRecommendations),
               itemBuilder: (context, index) {
                 final movie = movies[index];
                 return Column(
@@ -224,7 +221,7 @@ class _CollaborativeSystemPageState extends State<CollaborativeSystemPage> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Accept'),
+              child: const Text('Aceptar'),
             ),
           ],
         );
@@ -276,139 +273,159 @@ class _CollaborativeSystemPageState extends State<CollaborativeSystemPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Collaborative System'),
+        title: const Text('Easy List'),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Add Movies:',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 8),
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: movieController,
-                    onChanged: buscarSugerencias,
-                    decoration: InputDecoration(
-                      labelText: 'Movie name',
-                      border: OutlineInputBorder(),
+      padding: const EdgeInsets.all(16),
+      child: ListView(
+        shrinkWrap: true,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Introduce las películas:',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 8),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: movieController,
+                      onChanged: buscarSugerencias,
+                      decoration: InputDecoration(
+                        labelText: 'Película',
+                        border: OutlineInputBorder(),
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(width: 8),
-                ElevatedButton(
-                  onPressed: agregarPelicula,
-                  child: Text('Add'),
-                ),
-              ],
-            ),
-            SizedBox(height: 8),
-            suggestions.isNotEmpty
-                ? ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: suggestions.length,
-                    itemBuilder: (context, index) {
-                      final suggestion = suggestions[index];
-                      return ListTile(
-                        title: Text(suggestion),
-                        onTap: () {
-                          setState(() {
-                            movieController.text = suggestion;
-                            suggestions = [];
-                          });
-                        },
-                      );
+                  SizedBox(width: 8),
+                  ElevatedButton(
+                    onPressed: agregarPelicula,
+                    child: Text('Añadir'),
+                  ),
+                ],
+              ),
+              SizedBox(height: 8),
+              suggestions.isNotEmpty
+                  ? ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: suggestions.length,
+                      itemBuilder: (context, index) {
+                        final suggestion = suggestions[index];
+                        return ListTile(
+                          title: Text(suggestion),
+                          onTap: () {
+                            setState(() {
+                              movieController.text = suggestion;
+                              suggestions = [];
+                            });
+                          },
+                        );
+                      },
+                    )
+                  : SizedBox.shrink(),
+              SizedBox(height: 16),
+              Text(
+                'Películas:',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 4),
+              Column(
+                children: selectedMovies.map((movie) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(movie.name),
+                      Wrap(
+  spacing: -20, // Ajusta el espacio horizontal entre las estrellas
+  runSpacing: 4, // Ajusta el espacio vertical entre las filas de estrellas
+  children: [
+    IconButton(
+      onPressed: () => valorarPelicula(movie, 1),
+      iconSize: 20, // Tamaño de las estrellas
+      padding: EdgeInsets.zero, // Eliminar el espacio de padding alrededor del icono
+      icon: Icon(Icons.star, color: movie.rating >= 1 ? Colors.amber : Colors.grey),
+    ),
+    IconButton(
+      onPressed: () => valorarPelicula(movie, 2),
+      iconSize: 20,
+      padding: EdgeInsets.zero,
+      icon: Icon(Icons.star, color: movie.rating >= 2 ? Colors.amber : Colors.grey),
+    ),
+    IconButton(
+      onPressed: () => valorarPelicula(movie, 3),
+      iconSize: 20,
+      padding: EdgeInsets.zero,
+      icon: Icon(Icons.star, color: movie.rating >= 3 ? Colors.amber : Colors.grey),
+    ),
+    IconButton(
+      onPressed: () => valorarPelicula(movie, 4),
+      iconSize: 20,
+      padding: EdgeInsets.zero,
+      icon: Icon(Icons.star, color: movie.rating >= 4 ? Colors.amber : Colors.grey),
+    ),
+    IconButton(
+      onPressed: () => valorarPelicula(movie, 5),
+      iconSize: 20,
+      padding: EdgeInsets.zero,
+      icon: Icon(Icons.star, color: movie.rating >= 5 ? Colors.amber : Colors.grey),
+    ),
+    IconButton(
+      onPressed: () => eliminarPelicula(movie.name),
+      iconSize: 20,
+      padding: EdgeInsets.zero,
+      icon: Icon(Icons.delete),
+    ),
+  ],
+),
+
+                    ],
+                  );
+                }).toList(),
+              ),
+              SizedBox(height: 16),
+              Text(
+                'Introduce el número de recomendaciones que deseas:',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 8),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        setState(() {
+                          numRecommendations = int.tryParse(value) ?? 1;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'número',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  ElevatedButton(
+                    onPressed: () {
+                      cuadroPeliculas(context);
                     },
+                    child: Text('Recomendación'),
+                  ),
+                ],
+              ),
+              isLoading
+                ? Center(
+                    child: CircularProgressIndicator(),
                   )
                 : SizedBox.shrink(),
-            SizedBox(height: 16),
-            Text(
-              'Selected Movies:',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 4),
-            Column(
-              children: selectedMovies.map((movie) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(movie.name),
-                    Row(
-                      children: [
-                        IconButton(
-                          onPressed: () => valorarPelicula(movie, 1),
-                          icon: Icon(Icons.star, color: movie.rating >= 1 ? Colors.amber : Colors.grey),
-                        ),
-                        IconButton(
-                          onPressed: () => valorarPelicula(movie, 2),
-                          icon: Icon(Icons.star, color: movie.rating >= 2 ? Colors.amber : Colors.grey),
-                        ),
-                        IconButton(
-                          onPressed: () => valorarPelicula(movie, 3),
-                          icon: Icon(Icons.star, color: movie.rating >= 3 ? Colors.amber : Colors.grey),
-                        ),
-                        IconButton(
-                          onPressed: () => valorarPelicula(movie, 4),
-                          icon: Icon(Icons.star, color: movie.rating >= 4 ? Colors.amber : Colors.grey),
-                        ),
-                        IconButton(
-                          onPressed: () => valorarPelicula(movie, 5),
-                          icon: Icon(Icons.star, color: movie.rating >= 5 ? Colors.amber : Colors.grey),
-                        ),
-                        IconButton(
-                          onPressed: () => eliminarPelicula(movie.name),
-                          icon: Icon(Icons.delete),
-                        ),
-                      ],
-                    ),
-                  ],
-                );
-              }).toList(),
-            ),
-            SizedBox(height: 16),
-            Text(
-              'Number of Recommendations:',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 8),
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    keyboardType: TextInputType.number,
-                    onChanged: (value) {
-                      setState(() {
-                        numRecommendations = int.tryParse(value) ?? 1;
-                      });
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'Enter a number',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-                SizedBox(width: 8),
-                ElevatedButton(
-                  onPressed: () {
-                    cuadroPeliculas(context);
-                  },
-                  child: Text('Get Recommendations'),
-                ),
-              ],
-            ),
-            isLoading
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : SizedBox.shrink(),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
+    ),
       bottomNavigationBar: BottomAppBar(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -418,7 +435,7 @@ class _CollaborativeSystemPageState extends State<CollaborativeSystemPage> {
                 color: const Color.fromARGB(255, 245, 146, 179),
               ),
               onPressed: () {
-                // Acción al presionar el botón de Twitter
+                //botón de Twitter
               },
             ),
             IconButton(
@@ -426,7 +443,7 @@ class _CollaborativeSystemPageState extends State<CollaborativeSystemPage> {
                 color: const Color.fromARGB(255, 245, 146, 179),
               ),
               onPressed: () {
-                // Acción al presionar el botón de Instagram
+                //botón de Instagram
               },
             ),
             IconButton(
@@ -434,7 +451,7 @@ class _CollaborativeSystemPageState extends State<CollaborativeSystemPage> {
                 color: const Color.fromARGB(255, 245, 146, 179),
               ),
               onPressed: () {
-                final String appLink = 'https://easylist.com/collaborative'; // Reemplazar
+                final String appLink = 'https://easylist.com/collaborative';
                 Clipboard.setData(ClipboardData(text: appLink)).then((value) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Enlace copiado')),
@@ -445,7 +462,7 @@ class _CollaborativeSystemPageState extends State<CollaborativeSystemPage> {
             ),
             InkWell(
               onTap: () {
-                // Acción al presionar el enlace de preguntas frecuentes
+                //enlace preguntas frecuentes
               },
               child: Text(
                 'FAQ',
